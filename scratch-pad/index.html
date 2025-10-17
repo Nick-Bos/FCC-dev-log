@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wastage Factor Curve Tool</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Wastage Factor Curve Tool</h1>
+    <p>This tool helps visualize and calculate the wastage factor curve based on your inputs.</p>
+
+    <div class="input-group">
+      <label for="areaInput">Area (m²)</label>
+      <input type="number" id="areaInput" placeholder="Enter area..." />
+      <button id="areaInput_submit">Calculate</button>
+    </div>
+
+    <div id="factors-container">
+      <h3>Factors</h3>
+      <p>Adjust each factor value (1–10):</p>
+      <div id="factor-inputs"></div>
+    </div>
+
+    <div class="result" id="resultDiv">Result: —</div>
+
+    <div class="formula-box" id="formulaBox">
+      <h3>Formula Breakdown</h3>
+      <pre id="formulaText">Waiting for input...</pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

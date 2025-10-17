@@ -1,0 +1,170 @@
+:root {
+  --bg: #f5f7fa;
+  --card: #ffffff;
+  --primary: #0077ff;
+  --text: #222;
+  --border: #ddd;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.container {
+  background: var(--card);
+  margin-top: 30px;
+  padding: 20px 25px;
+  border-radius: 8px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
+  max-width: 600px;
+  width: 90%;
+}
+
+h1 {
+  color: var(--primary);
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+
+p {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.input-group input {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.input-group button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.input-group button:hover {
+  background-color: #005fcc;
+}
+
+#factors-container {
+  margin-top: 15px;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+}
+
+#factors-container h3 {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+#factors-container p {
+  font-size: 0.8rem;
+  margin-bottom: 0.4rem;
+}
+
+#factor-inputs {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px 10px;
+  margin-top: 5px;
+}
+
+#factor-inputs label {
+  display: block;
+  font-size: 0.75rem;
+  color: #666;
+  margin-bottom: 2px;
+}
+
+#factor-inputs input {
+  width: 100%;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-size: 0.85rem;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+  background: #eef6ff;
+  padding: 8px 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.formula-box {
+  margin-top: 12px;
+  background: #f9fafc;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.formula-box h3 {
+  margin: 0 0 6px 0;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.formula-box pre {
+  font-family: "Consolas", monospace;
+  background: #f3f3f3;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 0.8rem;
+  overflow-x: auto;
+  color: #333;
+  margin: 0;
+}
+.factor-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: transparent;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+.factor-cell input {
+  margin-bottom: 3px;
+}
+.factor-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: transparent;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+.factor-cell input {
+  margin-bottom: 3px;
+}
