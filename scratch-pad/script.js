@@ -4,14 +4,13 @@ let area = 0;
 // Editable waste thresholds
 let factor_of_waste = [100, 90, 80, 70, 60, 50, 40, 30, 20, 10];
 
-// Default factors (editable too)
+// Default factors
 let defaultFactors = [1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1];
 
 // --- Create inputs dynamically ---
 document.addEventListener("DOMContentLoaded", () => {
   const factorContainer = document.getElementById("factor-inputs");
 
-  // Create both threshold + factor fields side by side
   factor_of_waste.forEach((threshold, i) => {
     const idx = i + 1;
     const wrapper = document.createElement("div");
@@ -27,14 +26,16 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("areaInput_submit")
     .addEventListener("click", handleSubmit);
+
+  const qtyBtn = document.getElementById("calcQty");
+  if (qtyBtn) qtyBtn.addEventListener("click", handleQtyCalc);
 });
 
-// --- Core Calculation ---
+// --- Get factor from area ---
 function getFactorFromArea(area, wastes, factors) {
   let factor = 0;
   let activeIndex = -1;
 
-  // Find which waste range area fits into
   for (let i = 0; i < wastes.length - 1; i++) {
     if (area <= wastes[i] && area > wastes[i + 1]) {
       factor = factors[i];
@@ -43,7 +44,6 @@ function getFactorFromArea(area, wastes, factors) {
     }
   }
 
-  // If larger than highest or smaller than lowest
   if (area > wastes[0]) {
     factor = factors[0];
     activeIndex = 0;
@@ -59,7 +59,7 @@ function calculateResult(area, factor) {
   return area !== 0 ? factor / (area / 10) + 1 : 0;
 }
 
-// --- Handle Button Click ---
+// --- Handle main calculation ---
 function handleSubmit() {
   const areaInput = parseFloat(document.getElementById("areaInput").value);
   const resultDiv = document.getElementById("resultDiv");
@@ -72,7 +72,6 @@ function handleSubmit() {
     return;
   }
 
-  // Pull all updated waste + factor values
   let wastes = [];
   let factors = [];
   for (let i = 1; i <= 10; i++) {
@@ -80,20 +79,16 @@ function handleSubmit() {
     factors.push(parseFloat(document.getElementById(`factor${i}`).value));
   }
 
-  // Find correct factor based on area
   const { factor, activeIndex } = getFactorFromArea(areaInput, wastes, factors);
   const result = calculateResult(areaInput, factor);
 
-  // --- Highlight the active factor row
   document.querySelectorAll(".factor-cell").forEach((cell, idx) => {
     cell.style.backgroundColor = idx === activeIndex ? "#eaf4ff" : "transparent";
   });
 
-  // --- Display results
   resultDiv.textContent = `Result: ${result.toFixed(4)}`;
   resultDiv.style.color = "var(--primary)";
 
-  // --- Formula breakdown
   const lowerBound = activeIndex < wastes.length - 1 ? wastes[activeIndex + 1] : 0;
   const upperBound = wastes[activeIndex];
   let breakdown = `
@@ -105,4 +100,48 @@ Substitution: ${factor} / (${areaInput} / 10) + 1
 Result: ${result.toFixed(4)}
   `;
   formulaText.textContent = breakdown.trim();
+}
+
+// --- Quantity Calculation ---
+function handleQtyCalc() {
+  const areaInput = parseFloat(document.getElementById("areaInput").value);
+  const sheetHeight = parseFloat(document.getElementById("sheetHeight").value);
+  const sheetLength = parseFloat(document.getElementById("sheetLength").value);
+  let addFactor = parseFloat(document.getElementById("addFactor").value);
+  const qtyResult = document.getElementById("qtyResult");
+  const qtyFormulaText = document.getElementById("qtyFormulaText");
+
+  if (isNaN(areaInput) || areaInput <= 0) {
+    qtyResult.textContent = "Enter a valid area first.";
+    qtyFormulaText.textContent = "Waiting for valid area...";
+    return;
+  }
+
+  if (isNaN(addFactor)) {
+    const prevResult = parseFloat(
+      document.getElementById("resultDiv").textContent.replace(/[^\d.]/g, "")
+    );
+    addFactor = isNaN(prevResult) ? 1 : prevResult;
+    document.getElementById("addFactor").value = addFactor.toFixed(2);
+  }
+
+  if (isNaN(sheetHeight) || sheetHeight <= 0 || isNaN(sheetLength) || sheetLength <= 0) {
+    qtyResult.textContent = "Enter valid sheet dimensions.";
+    return;
+  }
+
+  const raw = areaInput / (sheetLength * sheetHeight) * addFactor;
+  const qty = Math.ceil(raw) + 1;
+
+  qtyResult.textContent = `Qty: ${qty}`;
+  qtyFormulaText.textContent = `
+Area: ${areaInput}
+Sheet Height: ${sheetHeight}
+Sheet Length: ${sheetLength}
+ADD: ${addFactor}
+
+Formula: RoundUp(Area / (Length * Height) * ADD) + 1
+Substitution: RoundUp(${areaInput} / (${sheetLength} * ${sheetHeight}) * ${addFactor}) + 1
+Result: ${qty}
+  `.trim();
 }

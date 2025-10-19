@@ -10,7 +10,7 @@
 <body>
   <div class="container">
     <h1>Wastage Factor Curve Tool</h1>
-    <p>This tool helps visualize and calculate the wastage factor curve based on your inputs.</p>
+    <p>This tool visualizes the wastage factor curve and calculates quantities based on area.</p>
 
     <div class="input-group">
       <label for="areaInput">Area (m²)</label>
@@ -19,8 +19,8 @@
     </div>
 
     <div id="factors-container">
-      <h3>Factors</h3>
-      <p>Adjust each factor value (1–10):</p>
+      <h3>Factors and Waste Thresholds</h3>
+      <p>Edit thresholds and factor values. When an area is entered, the matching range is highlighted.</p>
       <div id="factor-inputs"></div>
     </div>
 
@@ -29,6 +29,27 @@
     <div class="formula-box" id="formulaBox">
       <h3>Formula Breakdown</h3>
       <pre id="formulaText">Waiting for input...</pre>
+    </div>
+
+    <div class="qty-box">
+      <h3>Quantity Calculator</h3>
+      <p>Formula: RoundUp([Area] / ([Ceiling Sheet Length] * [Sheet Height]) * [ADD]) + 1</p>
+
+      <div class="qty-inputs">
+        <label>Sheet Height (m):</label>
+        <input type="number" id="sheetHeight" value="2.4" step="0.1">
+
+        <label>Ceiling Sheet Length (m):</label>
+        <input type="number" id="sheetLength" value="3.6" step="0.1">
+
+        <label>ADD (factor):</label>
+        <input type="number" id="addFactor" step="0.1" placeholder="auto from result">
+
+        <button id="calcQty">Calculate Quantity</button>
+      </div>
+
+      <div id="qtyResult" class="result small">Qty: —</div>
+      <pre id="qtyFormulaText">Waiting for input...</pre>
     </div>
   </div>
 
