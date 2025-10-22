@@ -7,51 +7,53 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="theme-toggle">
-    <button id="themeToggle">🌙</button>
-  </div>
-
-  <main>
+  <header class="header">
     <h1>Wastage Factor Curve Tool</h1>
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>
+  </header>
+
+  <main class="container">
     <p>This tool visualizes the wastage factor curve and calculates quantities based on area.</p>
 
-    <div class="input-section">
-      <label for="areaInput">Area (m²)</label>
+    <section class="section">
+      <label for="areaInput" class="label">Area (m²)</label>
       <div class="input-row">
-        <input type="number" id="areaInput" placeholder="Enter area..." />
-        <button id="calculateBtn">Calculate</button>
+        <input type="number" id="areaInput" class="input-field" placeholder="Enter area..." />
+        <button id="calculateBtn" class="btn">Calculate</button>
       </div>
-    </div>
+    </section>
 
-    <section id="factorsSection">
-      <h3>Factors and Waste Thresholds</h3>
+    <section class="section">
+      <h2 class="section-title">Factors & Waste Thresholds</h2>
       <p>Edit thresholds and factor values. When an area is entered, the matching range is highlighted.</p>
-      <div id="factorsGrid"></div>
+      <div id="factorsGrid" class="grid-factors"></div>
       <div id="result" class="result-box">Result: —</div>
     </section>
 
-    <section id="formulaBreakdown">
-      <h3>Formula Breakdown</h3>
-      <pre id="formulaOutput">Waiting for input...</pre>
+    <section class="section">
+      <h2 class="section-title">Formula Breakdown</h2>
+      <pre id="formulaOutput" class="output-box">Waiting for input...</pre>
     </section>
 
-    <section id="quantityCalc">
-      <h3>Quantity Calculator</h3>
-      <p>Formula: RoundUp([Area]/([Ceiling Sheet Length]*[Sheet Height])*[ADD])+1</p>
-
-      <div class="quantity-inputs">
-        <label>Sheet Height (m):</label>
-        <input type="number" id="sheetHeight" placeholder="e.g. 2.4" step="0.1">
-
-        <label>Ceiling Sheet Length (m):</label>
-        <input type="number" id="sheetLength" placeholder="e.g. 3.6" step="0.1">
-
-        <label>ADD (factor):</label>
-        <input type="number" id="addFactor" placeholder="auto from result" readonly>
+    <section class="section">
+      <h2 class="section-title">Quantity Calculator</h2>
+      <p>Formula: RoundUp([Area] / ([Ceiling Sheet Length] * [Sheet Height]) * [ADD]) + 1</p>
+      <div class="grid-qty-inputs">
+        <div class="label-input">
+          <label for="sheetHeight" class="label">Sheet Height (m):</label>
+          <input type="number" id="sheetHeight" class="input-field" placeholder="e.g. 2.4" step="0.1" />
+        </div>
+        <div class="label-input">
+          <label for="sheetLength" class="label">Ceiling Sheet Length (m):</label>
+          <input type="number" id="sheetLength" class="input-field" placeholder="e.g. 3.6" step="0.1" />
+        </div>
+        <div class="label-input">
+          <label for="addFactor" class="label">ADD (factor):</label>
+          <input type="number" id="addFactor" class="input-field" placeholder="Auto from result" readonly />
+        </div>
       </div>
-
-      <button id="calcQtyBtn">Calculate Quantity</button>
-      <div id="qtyResult">Qty: —</div>
+      <button id="calcQtyBtn" class="btn btn-wide">Calculate Quantity</button>
+      <div id="qtyResult" class="result-box small">Qty: —</div>
     </section>
   </main>
 

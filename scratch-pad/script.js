@@ -39,19 +39,30 @@ function renderFactors() {
 }
 renderFactors();
 
+function highlightActive(idxActive) {
+  document.querySelectorAll(".factor-cell").forEach((cell, idx) => {
+    if (idx === idxActive) cell.classList.add("active");
+    else cell.classList.remove("active");
+  });
+}
+
 function calculate() {
   const area = parseFloat(areaInput.value);
-  if (isNaN(area) || area <= 0) return;
+  if (isNaN(area) || area <= 0) {
+    resultBox.textContent = "Result: —";
+    formulaOutput.textContent = "Please enter a valid area.";
+    return;
+  }
 
   let factor = 0;
-  let range = "";
+  let rangeDescription = "";
 
   for (let i = 0; i < wasteThresholds.length; i++) {
     const current = wasteThresholds[i];
-    const next = wasteThresholds[i + 1] ?? 0;
+    const next = wasteThresholds[i + 1] || 0;
     if (area <= current && area > next) {
       factor = wasteFactors[i];
-      range = `between ${next} and ${current}`;
+      rangeDescription = `between ${next} and ${current}`;
       highlightActive(i);
       break;
     }
@@ -61,20 +72,14 @@ function calculate() {
   resultBox.textContent = `Result: ${result.toFixed(4)}`;
   formulaOutput.textContent = `
 Area entered: ${area}
-Selected factor range: ${range}
+Selected factor range: ${rangeDescription}
 Chosen factor: ${factor}
 Formula: factor / (area / 10) + 1
 Substitution: ${factor} / (${area} / 10) + 1
 Result: ${result.toFixed(4)}
-`;
-  addFactorInput.value = result.toFixed(4);
-}
+`.trim();
 
-function highlightActive(activeIndex) {
-  document.querySelectorAll(".factor-cell").forEach((cell, idx) => {
-    if (idx === activeIndex) cell.classList.add("active");
-    else cell.classList.remove("active");
-  });
+  addFactorInput.value = result.toFixed(4);
 }
 
 function calculateQuantity() {
@@ -83,7 +88,7 @@ function calculateQuantity() {
   const sheetLength = parseFloat(sheetLengthInput.value);
   const add = parseFloat(addFactorInput.value);
 
-  if ([area, sheetHeight, sheetLength, add].some(isNaN)) {
+  if ([area, sheetHeight, sheetLength, add].some(val => isNaN(val) || val <= 0)) {
     qtyResult.textContent = "Qty: Invalid input";
     return;
   }
@@ -97,6 +102,6 @@ document.getElementById("calcQtyBtn").addEventListener("click", calculateQuantit
 
 const themeToggle = document.getElementById("themeToggle");
 themeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-  themeToggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+  const isDark = document.body.classList.toggle("dark");
+  themeToggle.textContent = isDark ? "☀️" : "🌙";
 });
