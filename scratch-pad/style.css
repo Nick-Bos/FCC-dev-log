@@ -6,6 +6,14 @@
   --border: #ddd;
 }
 
+body.dark {
+  --bg: #121212;
+  --card: #1e1e1e;
+  --primary: #4da3ff;
+  --text: #eaeaea;
+  --border: #333;
+}
+
 body {
   font-family: "Segoe UI", Roboto, Arial, sans-serif;
   background-color: var(--bg);
@@ -13,30 +21,56 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: 650px;
+  margin-top: 20px;
+}
+
+.top-bar h1 {
+  color: var(--primary);
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.theme-toggle {
+  background: var(--primary);
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.theme-toggle:hover {
+  background: #005fcc;
 }
 
 .container {
   background: var(--card);
-  margin-top: 25px;
+  margin-top: 15px;
   padding: 20px 25px;
   border-radius: 8px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
   max-width: 650px;
   width: 90%;
-}
-
-h1 {
-  color: var(--primary);
-  font-size: 1.3rem;
-  margin-bottom: 0.3rem;
+  transition: background 0.3s, color 0.3s;
 }
 
 p {
   font-size: 0.85rem;
-  color: #555;
   margin-top: 0;
   margin-bottom: 0.8rem;
 }
@@ -54,6 +88,8 @@ p {
   border: 1px solid var(--border);
   border-radius: 4px;
   font-size: 0.9rem;
+  background: var(--card);
+  color: var(--text);
 }
 
 .input-group button {
@@ -75,16 +111,6 @@ p {
   margin-top: 15px;
   border-top: 1px solid var(--border);
   padding-top: 10px;
-}
-
-#factors-container h3 {
-  font-size: 1rem;
-  margin-bottom: 0.3rem;
-}
-
-#factors-container p {
-  font-size: 0.8rem;
-  margin-bottom: 0.4rem;
 }
 
 #factor-inputs {
@@ -111,12 +137,14 @@ p {
   border: 1px solid var(--border);
   border-radius: 3px;
   font-size: 0.85rem;
+  background: var(--card);
+  color: var(--text);
 }
 
 #factor-inputs label {
   display: block;
   font-size: 0.75rem;
-  color: #666;
+  color: #888;
   margin-bottom: 2px;
 }
 
@@ -131,6 +159,10 @@ p {
   text-align: center;
 }
 
+body.dark .result {
+  background: #1d2733;
+}
+
 .formula-box {
   margin-top: 12px;
   background: #f9fafc;
@@ -139,10 +171,8 @@ p {
   padding: 10px;
 }
 
-.formula-box h3 {
-  margin: 0 0 6px 0;
-  color: #444;
-  font-size: 0.95rem;
+body.dark .formula-box {
+  background: #1e1e1e;
 }
 
 .formula-box pre {
@@ -151,9 +181,12 @@ p {
   border-radius: 4px;
   padding: 8px;
   font-size: 0.8rem;
-  overflow-x: auto;
   color: #333;
-  margin: 0;
+}
+
+body.dark .formula-box pre {
+  background: #2a2a2a;
+  color: #ccc;
 }
 
 .qty-box {
@@ -164,9 +197,8 @@ p {
   border-radius: 6px;
 }
 
-.qty-box h3 {
-  font-size: 1rem;
-  color: #333;
+body.dark .qty-box {
+  background: #1b1b1b;
 }
 
 .qty-inputs {
@@ -176,17 +208,13 @@ p {
   margin-top: 8px;
 }
 
-.qty-inputs label {
-  grid-column: span 2;
-  font-size: 0.8rem;
-  color: #666;
-}
-
 .qty-inputs input {
   padding: 6px;
   border: 1px solid var(--border);
   border-radius: 4px;
   font-size: 0.85rem;
+  background: var(--card);
+  color: var(--text);
 }
 
 .qty-inputs button {
@@ -205,12 +233,6 @@ p {
   background: #005fcc;
 }
 
-#qtyResult.small {
-  margin-top: 10px;
-  font-size: 0.95rem;
-  background: #eef6ff;
-}
-
 #qtyFormulaText {
   margin-top: 8px;
   background: #f3f3f3;
@@ -219,4 +241,10 @@ p {
   font-family: "Consolas", monospace;
   font-size: 0.8rem;
   white-space: pre-wrap;
+  color: #333;
+}
+
+body.dark #qtyFormulaText {
+  background: #2a2a2a;
+  color: #ccc;
 }
