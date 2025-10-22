@@ -11,7 +11,6 @@ const sheetLengthInput = document.getElementById("sheetLength");
 const addFactorInput = document.getElementById("addFactor");
 const qtyResult = document.getElementById("qtyResult");
 
-// Generate the factor input grid dynamically
 function renderFactors() {
   factorsGrid.innerHTML = "";
   wasteThresholds.forEach((threshold, i) => {
@@ -40,7 +39,6 @@ function renderFactors() {
 }
 renderFactors();
 
-// Calculate wastage factor based on area
 function calculate() {
   const area = parseFloat(areaInput.value);
   if (isNaN(area) || area <= 0) return;
@@ -51,7 +49,6 @@ function calculate() {
   for (let i = 0; i < wasteThresholds.length; i++) {
     const current = wasteThresholds[i];
     const next = wasteThresholds[i + 1] ?? 0;
-
     if (area <= current && area > next) {
       factor = wasteFactors[i];
       range = `between ${next} and ${current}`;
@@ -73,7 +70,6 @@ Result: ${result.toFixed(4)}
   addFactorInput.value = result.toFixed(4);
 }
 
-// Highlight the active range visually
 function highlightActive(activeIndex) {
   document.querySelectorAll(".factor-cell").forEach((cell, idx) => {
     if (idx === activeIndex) cell.classList.add("active");
@@ -81,7 +77,6 @@ function highlightActive(activeIndex) {
   });
 }
 
-// Quantity calculator
 function calculateQuantity() {
   const area = parseFloat(areaInput.value);
   const sheetHeight = parseFloat(sheetHeightInput.value);
@@ -100,7 +95,6 @@ function calculateQuantity() {
 document.getElementById("calculateBtn").addEventListener("click", calculate);
 document.getElementById("calcQtyBtn").addEventListener("click", calculateQuantity);
 
-// Dark mode toggle
 const themeToggle = document.getElementById("themeToggle");
 themeToggle.addEventListener("click", () => {
   document.body.classList.toggle("dark");
